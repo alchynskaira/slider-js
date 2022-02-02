@@ -1,0 +1,75 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin:0;
+    padding:0;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.container {
+    max-width: 800px;
+    max-height: 700px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 09px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+
+.image-list {
+    display: flex;
+    list-style: none;
+}
+
+.slide-img {
+    max-width: 300px;
+    z-index: -2;
+}
+
+.button {
+    height: 10%;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.fa-arrow-left,
+.fa-arrow-right {
+    border: solid #fff;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+
+
+}
+.right-btn{
+   margin: auto -40px auto -40px;
+}
+
+.right-btn .fa-arrow-right {
+    transform: rotate(-45deg);
+}
+
+.left-btn{
+    margin: auto -40px auto -2px;
+}
+
+.left-btn .fa-arrow-left {
+    transform: rotate(135deg);
+}

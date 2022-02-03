@@ -41,7 +41,7 @@ html {
     margin:0;
 }
 
-.button {
+.button-wrapper {
     border: none;
     outline: none;
     background: transparent;
@@ -61,11 +61,16 @@ html {
 }
 
 .fas {
-    color: rgba(255,255,255, 0.5);
+    color: rgba(255,255,255, 0.9);
     font-size: xx-large;
 }
 
 .right-btn{
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
     position: absolute;
     top: 230px;
     right: 560px;
@@ -79,6 +84,11 @@ html {
 }
 
 .left-btn{
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
     position: absolute;
     top: 230px;
     left: 520px;

@@ -7,9 +7,9 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
+renderSlides(pictures);
 
-
-function showPictures (pictures) {
+function renderSlides (pictures) {
     const imgList = document.createElement('ul');
     imgList.classList.add("image-list")
     imgList.setAttribute("id", "image-list");
@@ -24,52 +24,42 @@ function showPictures (pictures) {
     });
 
 
+    createButton(["right-btn", "fas", "fa-chevron-right"]);
+    createButton(["left-btn", "fas", "fa-chevron-left"]);
 }
-showPictures(pictures);
 
-export const createButtonRight = () => {
-    const buttonRight = document.createElement("button");
-    buttonRight.classList.add("button", "right-btn");
-    const icon = document.createElement("i");
-    icon.classList.add("fas", "fa-chevron-right")
-    buttonRight.appendChild(icon);
-    wrapper.appendChild(buttonRight);
-    return buttonRight;
-}
-createButtonRight();
 
-export const createButtonLeft = () => {
-    const buttonLeft = document.createElement("button");
-    buttonLeft.classList.add("button", "left-btn");
+
+function createButton (btnClass) {
+    const button = document.createElement("button");
+    const buttonWrapper = document.createElement("div");
     const icon = document.createElement("i");
-    icon.classList.add("fas", "fa-chevron-left");
-    buttonLeft.appendChild(icon);
-    wrapper.appendChild(buttonLeft);
-    return buttonLeft;
+
+    button.classList.add(...btnClass);
+    button.appendChild(icon);
+    buttonWrapper.classList.add("button-wrapper");
+    buttonWrapper.append(button);
+    wrapper.append(buttonWrapper);
 }
-createButtonLeft();
 
 
  let positionInd = 1;
 
-function plusSlides() {
-    showSlides(positionInd++);
-};
 
-function minusSlides() {
-    showSlides(positionInd--);
-};
-
-
-function showSlides() {
+function switchSlides() {
     const slides = document.getElementsByClassName("image-item");
     const maxLength = slides.length;
 
     if (positionInd > maxLength) {
+
         positionInd = 1;
+
     } else if (positionInd < 1) {
-        positionInd = slides.length;
+
+        positionInd = maxLength;
+
     }
+
 
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = 'none';
@@ -77,11 +67,14 @@ function showSlides() {
     slides[positionInd -1].style.display = 'block';
 }
 
-const btnRight = document.querySelector( ".right-btn");
-const btnLeft = document.querySelector(".left-btn");
+document.querySelector( ".right-btn").addEventListener("click", function () {
+    switchSlides(positionInd--)
+});
+document.querySelector(".left-btn").addEventListener("click", function (){
+    switchSlides(positionInd--)
+});
 
-btnRight.addEventListener("click", plusSlides)
-btnLeft.addEventListener("click", minusSlides)
+
 
 
 

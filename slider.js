@@ -51,15 +51,10 @@ function switchSlides() {
     const maxLength = slides.length;
 
     if (positionInd > maxLength) {
-
         positionInd = 1;
-
     } else if (positionInd < 1) {
-
         positionInd = maxLength;
-
     }
-
 
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = 'none';
@@ -68,7 +63,7 @@ function switchSlides() {
 }
 
 document.querySelector( ".right-btn").addEventListener("click", function () {
-    switchSlides(positionInd--)
+    switchSlides(positionInd++)
 });
 document.querySelector(".left-btn").addEventListener("click", function (){
     switchSlides(positionInd--)

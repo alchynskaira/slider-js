@@ -6,86 +6,82 @@ const pictures = [
     'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg'
 ];
 
-const wrapper = document.getElementById("container")
+const wrapper = document.getElementById("container");
+
 
 function showPictures (pictures) {
-    const imgList = document.createElement('ul')
+    const imgList = document.createElement('ul');
     imgList.classList.add("image-list")
     imgList.setAttribute("id", "image-list");
     wrapper.appendChild(imgList);
-    const list = document.getElementById("image-list");
 
-
-    pictures.map((item, ind) => {
-
-       const itemImg =  `<li id="image-item" data-index=${ind}>
-                       <img class="slide-img" src=${item} alt="image">
+    pictures.map((item, index) => {
+       let itemImg =  `<li class="image-item" data-index= ${index} style= "display: ${index === 0 ? 'block' : 'none' }">
+                       <img class="slide-img" src= ${item} alt="image">
                        </li>`;
 
          imgList.innerHTML += itemImg;
     });
 
+
 }
-showPictures(pictures)
+showPictures(pictures);
 
 export const createButtonRight = () => {
     const buttonRight = document.createElement("button");
     buttonRight.classList.add("button", "right-btn");
     const icon = document.createElement("i");
     icon.classList.add("fas", "fa-chevron-right")
-    buttonRight.appendChild(icon)
+    buttonRight.appendChild(icon);
     wrapper.appendChild(buttonRight);
     return buttonRight;
 }
-
-createButtonRight()
+createButtonRight();
 
 export const createButtonLeft = () => {
     const buttonLeft = document.createElement("button");
     buttonLeft.classList.add("button", "left-btn");
     const icon = document.createElement("i");
-    icon.classList.add("fas", "fa-chevron-left"); //<i class="fas fa-chevron-left"></i>
+    icon.classList.add("fas", "fa-chevron-left");
     buttonLeft.appendChild(icon);
-    wrapper.appendChild(buttonLeft)
+    wrapper.appendChild(buttonLeft);
     return buttonLeft;
 }
-
-createButtonLeft()
-
+createButtonLeft();
 
 
-
-
-const currentSlide = document.querySelector("[data-index]")
- let positionInd = 0;
+ let positionInd = 1;
 
 function plusSlides() {
-    showSlides(positionInd += currentSlide);
-}
+    showSlides(positionInd++);
+};
+
+function minusSlides() {
+    showSlides(positionInd--);
+};
 
 
 function showSlides() {
+    const slides = document.getElementsByClassName("image-item");
+    const maxLength = slides.length;
 
-    const slides = document.querySelectorAll("image-list");
-    console.log(slides)
-    if (currentSlide >= slides.length) {
-        positionInd = 0
+    if (positionInd > maxLength) {
+        positionInd = 1;
+    } else if (positionInd < 1) {
+        positionInd = slides.length;
     }
-    if (currentSlide < 1) {
-        positionInd = slides.length
-    }
+
     for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = 'none';
     }
-
-    slides[positionInd - 1].style.display = "block";
+    slides[positionInd -1].style.display = 'block';
 }
 
 const btnRight = document.querySelector( ".right-btn");
 const btnLeft = document.querySelector(".left-btn");
 
 btnRight.addEventListener("click", plusSlides)
-btnLeft.addEventListener("click", plusSlides)
+btnLeft.addEventListener("click", minusSlides)
 
 
 

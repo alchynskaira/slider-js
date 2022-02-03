@@ -20,26 +20,28 @@ html {
     font-weight: 400;
 }
 
-.container {
-    max-width: 800px;
-    max-height: 700px;
+#container {
+    max-width: 600px;
+    max-height: 500px;
     display: flex;
     justify-content: center;
-    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 09px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+
 }
 
 .image-list {
+    position: relative;
     display: flex;
+    padding: 0;
     list-style: none;
 }
 
 .slide-img {
-    max-width: 300px;
-    z-index: -2;
+    max-width: 600px;
+    max-height: 500px;
+    margin:0;
 }
 
 .button {
-    height: 10%;
     border: none;
     outline: none;
     background: transparent;
@@ -49,17 +51,27 @@ html {
 
 .fa-arrow-left,
 .fa-arrow-right {
+    color: white;
     border: solid #fff;
     border-width: 0 4px 4px 0;
     display: inline-block;
     padding: 10px;
     transition: transform 0.3s ease-out;
     outline: none;
-
-
 }
+
+.fas {
+    color: rgba(255,255,255, 0.5);
+    font-size: xx-large;
+}
+
 .right-btn{
-   margin: auto -40px auto -40px;
+    position: absolute;
+    top: 230px;
+    right: 560px;
+    margin: auto -40px auto -40px;
+    width: 50px;
+    height: 50px;
 }
 
 .right-btn .fa-arrow-right {
@@ -67,7 +79,12 @@ html {
 }
 
 .left-btn{
+    position: absolute;
+    top: 230px;
+    left: 520px;
     margin: auto -40px auto -2px;
+    width: 50px;
+    height: 50px;
 }
 
 .left-btn .fa-arrow-left {

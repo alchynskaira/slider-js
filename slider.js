@@ -22,16 +22,14 @@ function renderSlides (pictures) {
 
          imgList.innerHTML += itemImg;
     });
-
     createButtonWrapper()
-
 }
 
  function createButtonWrapper () {
      const buttonWrapper = document.createElement("div");
      buttonWrapper.classList.add("button-wrapper");
-     buttonWrapper.append(createButton(["right-btn", "fas", "fa-chevron-right"]));
-     buttonWrapper.append( createButton(["left-btn", "fas", "fa-chevron-left"]));
+     buttonWrapper.append(createButton([ "btn", "right-btn", "fas", "fa-chevron-right"]));
+     buttonWrapper.append( createButton([ "btn", "left-btn", "fas", "fa-chevron-left"]));
      wrapper.append(buttonWrapper);
  }
 
@@ -45,26 +43,35 @@ function createButton (btnClass) {
 
  let positionInd = 0;
 
-function switchSlides(index) {
+function switchSlides(right) {
     const slides = document.getElementsByClassName("image-item");
-const maxLength = slides.length - 1;
-    if (index > maxLength) {
-        index = 0;
-    } else if (index < 0) {
-        index = maxLength;
-    }
-    positionInd = index;
+    const currentSlide = document.querySelector(".image-item.active");
+    const maxLength = slides.length - 1;
 
-    const currentSlide = document.getElementsByClassName("image-item active");
-    currentSlide[0].classList.remove("active");
-    slides[positionInd++].classList.add("active");
+    if (positionInd > maxLength) {
+        positionInd = 0;
+    } else if (positionInd < 0) {
+        positionInd = maxLength;
+    }
+      currentSlide.classList.remove("active");
+
+
+    if(right){
+        slides[positionInd++].classList.add("active");
+
+    } else {
+        slides[positionInd--].classList.add("active");
+
+    }
+
+
 }
 
 document.querySelector( ".right-btn").addEventListener("click",  () => {
-    switchSlides(positionInd++)
+    switchSlides(true)
 });
 document.querySelector(".left-btn").addEventListener("click",  () => {
-    switchSlides(positionInd--)
+    switchSlides(false)
 });
 
 

@@ -91,7 +91,7 @@ function moveToSlide(event) {
     const currentSlide = document.querySelector(".image-item.active");
     currentSlide.classList.remove("active");
     slides[event.currentTarget.value].classList.add("active");
-    markDot(dot);
+    markDot(event.currentTarget);
 }
 
 

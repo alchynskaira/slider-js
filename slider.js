@@ -38,13 +38,14 @@ function renderSlides(pictures) {
 function createButtonWrapper() {
     const buttonWrapper = document.createElement("div");
     buttonWrapper.classList.add("button-wrapper");
-    buttonWrapper.append(createButton(["btn", "right-btn", "fas", "fa-chevron-right"]));
-    buttonWrapper.append(createButton(["btn", "left-btn", "fas", "fa-chevron-left"]));
+    buttonWrapper.append(createButton(true, ["btn", "right-btn", "fas", "fa-chevron-right"]));
+    buttonWrapper.append(createButton(false, ["btn", "left-btn", "fas", "fa-chevron-left"]));
     wrapper.append(buttonWrapper);
 }
 
-function createButton(btnClass) {
+function createButton(isRight, btnClass) {
     const button = document.createElement("button");
+    button.setAttribute("onclick", "switchSlides("+ isRight +")")
     const icon = document.createElement("i");
     button.classList.add(...btnClass);
     button.appendChild(icon);
@@ -90,15 +91,4 @@ function moveToSlide(event) {
     markDot(event.target.dataset.dotIndex);
 }
 
-
-
-function addEventListenersToButtons () {
-    document.querySelector(".right-btn").addEventListener("click", () => {
-        switchSlides(true);
-    });
-    document.querySelector(".left-btn").addEventListener("click", () => {
-        switchSlides(false)
-    });
-}
 renderSlides(pictures);
-addEventListenersToButtons()

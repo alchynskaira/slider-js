@@ -7,11 +7,14 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
-renderSlides(pictures);
+
 
 function renderSlides(pictures) {
     const imgList = document.createElement('ul');
-    imgList.classList.add("image-list")
+    const dotBox = document.createElement("div");
+    dotBox.classList.add("dots-wrapper");
+    wrapper.append(dotBox);
+
     imgList.setAttribute("id", "image-list");
     wrapper.appendChild(imgList);
 
@@ -22,7 +25,13 @@ function renderSlides(pictures) {
 
         imgList.innerHTML += itemImg;
 
+
+
+        dotBox.innerHTML +=  createDot(index);
+
     });
+
+
     createButtonWrapper()
 }
 
@@ -42,30 +51,17 @@ function createButton(btnClass) {
     return button;
 }
 
-function createDots() {
-    const dotBox = document.createElement("div");
-    dotBox.classList.add("dots-wrapper");
-    dotBox.setAttribute("index", "data-target")
-    wrapper.append(dotBox);
-    pictures.map((item, index) => {
-        const dot = `<div class="dot${index === 0 ? ' active' : ''}" data-target="${index}">
+function createDot(index) {
+    let dot = `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}">
                        </div>`;
-        dotBox.innerHTML += dot;
-    });
+
+    return dot;
 
 }
-createDots()
 
-function addEventToDots() {
-    const dots = document.getElementsByClassName('dot');
-    for (let dot of dots) {
-        dot.addEventListener("click", () => moveToSlide(dot));
-    }
-}
-addEventToDots();
 
 function markDot(dot) {
-    document.getElementsByClassName('dot active')[0].classList.remove('active');
+    document.querySelector('.dot.active').classList.remove('active');
     dot.classList.add('active');
 }
 
@@ -90,17 +86,23 @@ function switchSlides(right) {
     markDot(dot);
 }
 
-function moveToSlide(dot) {
+function moveToSlide(event) {
     const slides = document.getElementsByClassName("image-item");
     const currentSlide = document.querySelector(".image-item.active");
     currentSlide.classList.remove("active");
-    slides[dot.dataset.target].classList.add("active");
+    slides[event.currentTarget.value].classList.add("active");
     markDot(dot);
 }
 
-document.querySelector(".right-btn").addEventListener("click", () => {
-    switchSlides(true);
-});
-document.querySelector(".left-btn").addEventListener("click", () => {
-    switchSlides(false)
-});
+
+
+function addEventListenersToButtons () {
+    document.querySelector(".right-btn").addEventListener("click", () => {
+        switchSlides(true);
+    });
+    document.querySelector(".left-btn").addEventListener("click", () => {
+        switchSlides(false)
+    });
+}
+renderSlides(pictures);
+addEventListenersToButtons()

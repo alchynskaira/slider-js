@@ -60,7 +60,8 @@ function createDot(index) {
 
 function markDot(id) {
     document.querySelector('.dot.active').classList.remove('active');
-    document.querySelector("[data-target='" + id + "']").classList.add('active');
+    document.querySelector("[data-dot-index='" + id + "']").classList.add('active');
+
 }
 
 function switchSlides(right) {
@@ -77,17 +78,16 @@ function switchSlides(right) {
     }
 
     currentSlide.classList.remove("active");
-    document.querySelector("[data-index='" + nextSlideIndex+ "']").classList.add('active');
+    document.querySelector("[data-index='" + nextSlideIndex + "']").classList.add('active');
 
     markDot(nextSlideIndex);
 }
 
 function moveToSlide(event) {
-    const slides = document.getElementsByClassName("image-item");
-    const currentSlide = document.querySelector(".image-item.active");
-    currentSlide.classList.remove("active");
-    slides[event.dataset.currentTarget].classList.add("active");
-    markDot(event.currentTarget);
+    document.querySelector(".image-item.active").classList.remove("active");
+    document.querySelector("[data-index='" + event.target.dataset.dotIndex + "']").classList.add("active");
+
+    markDot(event.target.dataset.dotIndex);
 }
 
 

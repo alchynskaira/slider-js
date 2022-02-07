@@ -6,7 +6,7 @@ const pictures = [
     'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg'
 ];
 
-const wrapper = document.getElementById("#container");
+const wrapper = document.getElementById("container");
 renderSlides(pictures);
 
 function renderSlides(pictures) {

@@ -52,17 +52,15 @@ function createButton(btnClass) {
 }
 
 function createDot(index) {
-    let dot = `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}">
+    return `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}">
                        </div>`;
-
-    return dot;
 
 }
 
 
-function markDot(dot) {
+function markDot(id) {
     document.querySelector('.dot.active').classList.remove('active');
-    dot.classList.add('active');
+    document.querySelector("[data-target='" + id + "']").classList.add('active');
 }
 
 function switchSlides(right) {
@@ -78,19 +76,17 @@ function switchSlides(right) {
         nextSlideIndex = maxLength - 1;
     }
 
-    const nextSlide = document.querySelector("[data-index='" + nextSlideIndex + "']");
     currentSlide.classList.remove("active");
-    nextSlide.classList.add('active');
+    document.querySelector("[data-index='" + nextSlideIndex+ "']").classList.add('active');
 
-    const dot = document.querySelector("[data-target='" + nextSlideIndex + "']");
-    markDot(dot);
+    markDot(nextSlideIndex);
 }
 
 function moveToSlide(event) {
     const slides = document.getElementsByClassName("image-item");
     const currentSlide = document.querySelector(".image-item.active");
     currentSlide.classList.remove("active");
-    slides[event.currentTarget.value].classList.add("active");
+    slides[event.dataset.currentTarget].classList.add("active");
     markDot(event.currentTarget);
 }
 

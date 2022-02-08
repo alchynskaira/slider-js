@@ -7,30 +7,53 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
+ wrapper.addEventListener('touchstart', handleTouchStart, false);
+ wrapper.addEventListener('touchmove', handleTouchMove);
+
+let clickX  = null;
+
+function  handleTouchStart(e){
+    console.log(e)
+    const firstTouch = e.touches[0]
+    clickX = firstTouch.clientX;
+}
+function handleTouchMove (e){
+if(!clickX){
+   return false;
+}
+let clickX2 = e.touches[0].clientX;
+let xDifference = clickX2 - clickX;
+if(xDifference > 0) {
+    switchSlides(true)
+}
+    else {
+        switchSlides(false)
+}
+}
+clickX = null;
+
 
 
 function renderSlides(pictures) {
     const imgList = document.createElement('ul');
+    imgList.classList.add("image-list")
     const dotBox = document.createElement("div");
     dotBox.classList.add("dots-wrapper");
     wrapper.append(dotBox);
-
     imgList.setAttribute("id", "image-list");
     wrapper.appendChild(imgList);
 
     pictures.map((item, index) => {
-        let itemImg = `<li class="image-item ${index === 0 ? 'active' : ''}" data-index= "${index}" >
+        let itemImg = `<li class="fade image-item ${index === 0 ? 'active' : ''}" data-img-index= "${index}" >
                        <img class="slide-img" src= "${item}" alt="image">
                        </li>`;
 
         imgList.innerHTML += itemImg;
 
 
-
         dotBox.innerHTML +=  createDot(index);
 
     });
-
 
     createButtonWrapper()
 }
@@ -52,6 +75,8 @@ function createButton(isRight, btnClass) {
     return button;
 }
 
+
+
 function createDot(index) {
     return `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}">
                        </div>`;
@@ -67,7 +92,7 @@ function markDot(id) {
 
 function switchSlides(right) {
     const currentSlide = document.querySelector(".image-item.active");
-    const currentSlideIndex = currentSlide.getAttribute('data-index');
+    const currentSlideIndex = currentSlide.getAttribute('data-img-index');
     let nextSlideIndex = right ? parseInt(currentSlideIndex) + 1 : parseInt(currentSlideIndex) - 1;
 
     const maxLength = pictures.length;
@@ -79,16 +104,16 @@ function switchSlides(right) {
     }
 
     currentSlide.classList.remove("active");
-    document.querySelector("[data-index='" + nextSlideIndex + "']").classList.add('active');
+    document.querySelector("[data-img-index='" + nextSlideIndex + "']").classList.add('active');
 
     markDot(nextSlideIndex);
 }
 
 function moveToSlide(event) {
     document.querySelector(".image-item.active").classList.remove("active");
-    document.querySelector("[data-index='" + event.target.dataset.dotIndex + "']").classList.add("active");
+    document.querySelector("[data-img-index='" + event.target.dataset?.dotIndex + "']").classList.add("active");
 
-    markDot(event.target.dataset.dotIndex);
+    markDot(event.target.dataset?.dotIndex);
 }
 
 renderSlides(pictures);

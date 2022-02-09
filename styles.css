@@ -21,35 +21,37 @@ html {
 }
 
 #container {
-    width: 1000px;
-    height: 800px;
-    display: flex;
-    justify-content: center;
-position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 3px 3px 10px rgba(0,0,0,.2);
 
 }
 .slider {
     overflow: hidden;
     position: relative;
     width: 1000px;
-    height: 800px;
+    height: 666px;
     z-index: 1;
+
 
 }
 
 #image-list {
     width: 1000px;
-    height: 800px;
+    height: 666px;
     display: flex;
     padding: 0;
     list-style: none;
-    z-index: 100;
+
+
 }
 
 .slide-img {
 
     max-width: 1000px;
-    max-height: 800px;
+    max-height: 666px;
     margin:0;
 }
 
@@ -106,7 +108,7 @@ position: relative;
     left: 50%;
     top:50%;
 width: 1000px;
-height: 800px;
+height: 666px;
 
 }
 

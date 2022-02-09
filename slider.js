@@ -7,27 +7,27 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
- wrapper.addEventListener('touchstart', handleTouchStart, false);
- wrapper.addEventListener('touchmove', handleTouchMove);
+ wrapper.addEventListener('mousedown', handleTouchStart, false);
+ wrapper.addEventListener('mousemove', handleTouchMove, false);
 
 let clickX  = null;
 
 function  handleTouchStart(e){
-    console.log(e)
-    const firstTouch = e.touches[0]
-    clickX = firstTouch.clientX;
+
+
+    clickX = e.clientX;
 }
 function handleTouchMove (e){
 if(!clickX){
    return false;
 }
-let clickX2 = e.touches[0].clientX;
+let clickX2 = e.clientX;
 let xDifference = clickX2 - clickX;
 if(xDifference > 0) {
-    switchSlides(true)
+    switchSlides(true);
 }
     else {
-        switchSlides(false)
+        switchSlides(false);
 }
 }
 clickX = null;

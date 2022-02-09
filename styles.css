@@ -55,11 +55,14 @@ html {
     margin:0;
 }
 
+
+
+
 .button-wrapper {
+    display: block;
     border: none;
     outline: none;
     background: transparent;
-
 }
 
 .fa-arrow-left,
@@ -79,6 +82,7 @@ html {
 }
 
 .btn {
+
     border: none;
     outline: none;
     background: rgba(0, 0, 0, 0.3);
@@ -102,9 +106,7 @@ html {
 
 .image-item  {
     display: none;
-    transform: translate(-50%, -50%);
     transition:  3s;
-    position: fixed;
     left: 50%;
     top:50%;
 width: 1000px;
@@ -160,4 +162,13 @@ height: 666px;
 @keyframes fade {
     from{opacity: .4}
     to{opacity: 1 }
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px) {
+    .button-wrapper {
+        display: none;
+
+    }
 }

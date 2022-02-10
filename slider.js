@@ -7,82 +7,127 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
+let direction;
+let startPosition = 0;
+let slides;
 
+function renderSlides(pictures) {
+    const slider = document.createElement("div");
+    const imgList = document.createElement('div');
+    const dotBox = document.createElement("div");
 
-function showPictures (pictures) {
-    const imgList = document.createElement('ul');
+    slider.classList.add("slider");
     imgList.classList.add("image-list")
+    dotBox.classList.add("dots-wrapper");
     imgList.setAttribute("id", "image-list");
-    wrapper.appendChild(imgList);
+    wrapper.append(slider);
+    slider.appendChild(imgList);
+    slider.append(dotBox);
 
     pictures.map((item, index) => {
-       let itemImg =  `<li class="image-item" data-index= ${index} style= "display: ${index === 0 ? 'block' : 'none' }">
-                       <img class="slide-img" src= ${item} alt="image">
-                       </li>`;
+        let itemImg = `<span class="fade image-item ${index === 0 ? 'active' : ''}" data-img-index= "${index}" >
+                       <img class="slide-img" fade src= "${item}" alt="image">
+                       </span>`;
 
-         imgList.innerHTML += itemImg;
+        imgList.innerHTML += itemImg;
+        dotBox.innerHTML +=  createDot(index);
+
     });
 
-
+    createButtonWrapper()
 }
-showPictures(pictures);
 
-export const createButtonRight = () => {
-    const buttonRight = document.createElement("button");
-    buttonRight.classList.add("button", "right-btn");
-    const icon = document.createElement("i");
-    icon.classList.add("fas", "fa-chevron-right")
-    buttonRight.appendChild(icon);
-    wrapper.appendChild(buttonRight);
-    return buttonRight;
+
+function createButtonWrapper() {
+    const buttonWrapper = document.createElement("div");
+    const sliderWrapper = document.querySelector(".slider");
+
+    buttonWrapper.classList.add("button-wrapper");
+    buttonWrapper.append(createButton(true, ["btn", "right-btn"]));
+    buttonWrapper.append(createButton(false, ["btn", "left-btn"]));
+    sliderWrapper.append(buttonWrapper);
 }
-createButtonRight();
 
-export const createButtonLeft = () => {
-    const buttonLeft = document.createElement("button");
-    buttonLeft.classList.add("button", "left-btn");
-    const icon = document.createElement("i");
-    icon.classList.add("fas", "fa-chevron-left");
-    buttonLeft.appendChild(icon);
-    wrapper.appendChild(buttonLeft);
-    return buttonLeft;
+function createButton(isRight, btnClass) {
+    const button = document.createElement("button");
+
+    button.setAttribute("onclick", "switchSlides("+ isRight +")")
+    button.classList.add(...btnClass);
+
+    return button;
 }
-createButtonLeft();
 
+function createDot(index) {
+    return `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}"></div>`;
+}
 
- let positionInd = 1;
+function markDot(id) {
+    document.querySelector('.dot.active').classList.remove('active');
+    document.querySelector("[data-dot-index='" + id + "']").classList.add('active');
+}
 
-function plusSlides() {
-    showSlides(positionInd++);
-};
+function switchSlides(right) {
+    const currentSlide = document.querySelector(".image-item.active");
+    const currentSlideIndex = currentSlide.getAttribute('data-img-index');
+    const maxLength = pictures.length;
+    let nextSlideIndex = right ? parseInt(currentSlideIndex) + 1 : parseInt(currentSlideIndex) - 1;
 
-function minusSlides() {
-    showSlides(positionInd--);
-};
-
-
-function showSlides() {
-    const slides = document.getElementsByClassName("image-item");
-    const maxLength = slides.length;
-
-    if (positionInd > maxLength) {
-        positionInd = 1;
-    } else if (positionInd < 1) {
-        positionInd = slides.length;
+    if (nextSlideIndex > maxLength - 1) {
+        nextSlideIndex = 0;
+    } else if (nextSlideIndex < 0) {
+        nextSlideIndex = maxLength - 1;
     }
 
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = 'none';
-    }
-    slides[positionInd -1].style.display = 'block';
+    currentSlide.classList.remove("active");
+    document.querySelector("[data-img-index='" + nextSlideIndex + "']").classList.add('active');
+
+    markDot(nextSlideIndex);
 }
 
-const btnRight = document.querySelector( ".right-btn");
-const btnLeft = document.querySelector(".left-btn");
+function moveToSlide(event) {
+    document.querySelector(".image-item.active").classList.remove("active");
+    document.querySelector("[data-img-index='" + event.target.dataset?.dotIndex + "']").classList.add("active");
 
-btnRight.addEventListener("click", plusSlides)
-btnLeft.addEventListener("click", minusSlides)
+    markDot(event.target.dataset?.dotIndex);
+}
 
+function addListenersDrag () {
+    slides = document.getElementById("image-list");
+    slides.onmousedown = dragStart;
+    slides.addEventListener('touchstart', dragStart);
+    slides.addEventListener('touchend', dragEnd);
+    slides.addEventListener('touchmove', dragAction);
+}
+
+function  dragStart(e){
+    e.preventDefault();
+
+    document.onmouseup = dragEnd;
+    document.onmousemove = dragAction;
+}
+
+function dragAction (e) {
+    if (e.pageX < startPosition) {
+        direction = "left";
+    } else if (e.pageX > startPosition) {
+        direction = "right";
+    }
+    startPosition = e.pageX;
+}
+
+function dragEnd (e) {
+    if (direction === 'right') {
+        switchSlides(false);
+    } else {
+        switchSlides(true);
+    }
+
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
+
+renderSlides(pictures);
+addListenersDrag()
 
 
 

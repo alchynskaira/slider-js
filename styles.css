@@ -34,8 +34,6 @@ html {
     width: 1000px;
     height: 666px;
     z-index: 1;
-
-
 }
 
 #image-list {
@@ -49,7 +47,6 @@ html {
 }
 
 .slide-img {
-
     max-width: 1000px;
     max-height: 666px;
     margin:0;
@@ -65,24 +62,7 @@ html {
     background: transparent;
 }
 
-.fa-arrow-left,
-.fa-arrow-right {
-    color: white;
-    border: solid #fff;
-    border-width: 0 4px 4px 0;
-    display: inline-block;
-    padding: 10px;
-    transition: transform 0.3s ease-out;
-    outline: none;
-}
-
-.fas {
-    color: rgba(255,255,255, 0.9);
-    font-size: xx-large;
-}
-
 .btn {
-
     border: none;
     outline: none;
     background: rgba(0, 0, 0, 0.3);
@@ -97,11 +77,29 @@ html {
 
 .right-btn{
     right:5%;
+    background-image: url(./icons/arrow-right.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
+
+
 }
 
 
 .left-btn{
     left: 5%;
+    background-image: url(./icons/arrow-left.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 10px;
+    transition: transform 0.3s ease-out;
+    outline: none;
 }
 
 .image-item  {
@@ -109,8 +107,8 @@ html {
     transition:  3s;
     left: 50%;
     top:50%;
-width: 1000px;
-height: 666px;
+    width: 1000px;
+    height: 666px;
 
 }
 
@@ -125,7 +123,7 @@ height: 666px;
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: white;
+    background-color: rgba(255,255,255, 0.9);
     border-radius: 50%;
     transition:  0.6s ease;
     z-index: 1000;

@@ -7,7 +7,8 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
-
+const rightIcon = "./icons/arrow-right.svg";
+const leftIcon = "./icons/arrow-left.svg";
 let direction;
 let startPosition = 0;
 let slides;
@@ -44,17 +45,15 @@ function createButtonWrapper() {
     const buttonWrapper = document.createElement("div");
     const sliderWrapper = document.querySelector(".slider");
     buttonWrapper.classList.add("button-wrapper");
-    buttonWrapper.append(createButton(true, ["btn", "right-btn", "fas", "fa-chevron-right"]));
-    buttonWrapper.append(createButton(false, ["btn", "left-btn", "fas", "fa-chevron-left"]));
+    buttonWrapper.append(createButton(true, ["btn", "right-btn"]));
+    buttonWrapper.append(createButton(false, ["btn", "left-btn"]));
     sliderWrapper.append(buttonWrapper);
 }
 
 function createButton(isRight, btnClass) {
     const button = document.createElement("button");
     button.setAttribute("onclick", "switchSlides("+ isRight +")")
-    const icon = document.createElement("i");
     button.classList.add(...btnClass);
-    button.appendChild(icon);
     return button;
 }
 

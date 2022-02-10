@@ -7,23 +7,20 @@ const pictures = [
 ];
 
 const wrapper = document.getElementById("container");
-const rightIcon = "./icons/arrow-right.svg";
-const leftIcon = "./icons/arrow-left.svg";
 let direction;
 let startPosition = 0;
 let slides;
 
-
-
 function renderSlides(pictures) {
     const slider = document.createElement("div");
-    slider.classList.add("slider");
-    wrapper.append(slider);
     const imgList = document.createElement('div');
-    imgList.classList.add("image-list")
     const dotBox = document.createElement("div");
+
+    slider.classList.add("slider");
+    imgList.classList.add("image-list")
     dotBox.classList.add("dots-wrapper");
     imgList.setAttribute("id", "image-list");
+    wrapper.append(slider);
     slider.appendChild(imgList);
     slider.append(dotBox);
 
@@ -44,6 +41,7 @@ function renderSlides(pictures) {
 function createButtonWrapper() {
     const buttonWrapper = document.createElement("div");
     const sliderWrapper = document.querySelector(".slider");
+
     buttonWrapper.classList.add("button-wrapper");
     buttonWrapper.append(createButton(true, ["btn", "right-btn"]));
     buttonWrapper.append(createButton(false, ["btn", "left-btn"]));
@@ -52,32 +50,27 @@ function createButtonWrapper() {
 
 function createButton(isRight, btnClass) {
     const button = document.createElement("button");
+
     button.setAttribute("onclick", "switchSlides("+ isRight +")")
     button.classList.add(...btnClass);
+
     return button;
 }
 
-
-
 function createDot(index) {
-    return `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}">
-                       </div>`;
-
+    return `<div onclick="moveToSlide(event)" class="dot${index === 0 ? ' active' : ''}" data-dot-index="${index}"></div>`;
 }
-
 
 function markDot(id) {
     document.querySelector('.dot.active').classList.remove('active');
     document.querySelector("[data-dot-index='" + id + "']").classList.add('active');
-
 }
 
 function switchSlides(right) {
     const currentSlide = document.querySelector(".image-item.active");
     const currentSlideIndex = currentSlide.getAttribute('data-img-index');
-    let nextSlideIndex = right ? parseInt(currentSlideIndex) + 1 : parseInt(currentSlideIndex) - 1;
-
     const maxLength = pictures.length;
+    let nextSlideIndex = right ? parseInt(currentSlideIndex) + 1 : parseInt(currentSlideIndex) - 1;
 
     if (nextSlideIndex > maxLength - 1) {
         nextSlideIndex = 0;
@@ -108,6 +101,7 @@ function addListenersDrag () {
 
 function  dragStart(e){
     e.preventDefault();
+
     document.onmouseup = dragEnd;
     document.onmousemove = dragAction;
 }
@@ -131,6 +125,7 @@ function dragEnd (e) {
     document.onmouseup = null;
     document.onmousemove = null;
 }
+
 renderSlides(pictures);
 addListenersDrag()
 

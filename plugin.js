@@ -16,9 +16,8 @@ let slides;
      function  SliderPlugin (selector, options) {
              this.arrows= true,
              this.dots= true,
-                 this.settings = { ...options };
-         console.log(this.settings)
-             this.settings.selector = selector
+                 this.settings = { ...options },
+             this.settings.selector = selector,
 
 
        this.init();
@@ -125,7 +124,6 @@ let slides;
         }
 
     const dragStart =  (e) => {
-        console.log(e)
             e.preventDefault();
 
             document.onmouseup = dragEnd;
@@ -169,9 +167,4 @@ let slides;
 }())
 
 
-// new SliderPlugin({
-//     pictures: pictures,
-//     arrows: true,
-//     dots: true,
-// })
 

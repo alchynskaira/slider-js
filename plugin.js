@@ -18,7 +18,7 @@ let slides;
 
                  this.settings = { ...options },
                  this.settings.selector = selector,
-                 wrapper = document.getElementById("slider-plugin"),
+                 wrapper = document.getElementById(selector),
 
        this.init();
     }

@@ -6,19 +6,19 @@ const pictures = [
     'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg'
 ];
 
-const wrapper = document.getElementById("slider-plugin");
+let wrapper;
 let direction;
 let startPosition = 0;
 let slides;
 
 
 (function() {
-     function  SliderPlugin (selector, options) {
-             this.arrows= true,
-             this.dots= true,
-                 this.settings = { ...options },
-             this.settings.selector = selector,
 
+     function  SliderPlugin (selector, options) {
+
+                 this.settings = { ...options },
+                 this.settings.selector = selector,
+                 wrapper = document.getElementById("slider-plugin"),
 
        this.init();
     }
@@ -44,22 +44,31 @@ let slides;
                        </span>`;
 
             imgList.innerHTML += itemImg;
-            if(this.dots === this.settings.dots){
+
+            if(this.settings.hasOwnProperty("dots") && !this.settings.dots){
+               return;
+            } else {
                 dotBox.innerHTML +=  this.createDot(index);
-            } else return;
+            };
 
         });
         this.addEventToDots()
         this.createButtonWrapper()
     }
+
     SliderPlugin.prototype.createButtonWrapper = function () {
+
             const buttonWrapper = document.createElement("div");
             const sliderWrapper = document.querySelector(".slider");
             buttonWrapper.classList.add("button-wrapper");
-            if(this.arrows === this.settings.arrows) {
+
+            if(this.settings.hasOwnProperty("arrows") && !this.settings.arrows) {
+               return;
+            } else {
                 buttonWrapper.append(this.createButton(true, ["btn", "right-btn"]));
                 buttonWrapper.append(this.createButton(false, ["btn", "left-btn"]));
-            } else return;
+            }
+
             sliderWrapper.append(buttonWrapper);
 
             buttonWrapper.querySelector(".right-btn").addEventListener("click", () => this.switchSlides(true));
@@ -68,6 +77,7 @@ let slides;
     }
 
     SliderPlugin.prototype.createButton = function (isRight, btnClass) {
+
             const button = document.createElement("button");
             button.classList.add(...btnClass);
             return button;
@@ -78,7 +88,9 @@ let slides;
     }
 
     SliderPlugin.prototype.addEventToDots = function () {
+
         const dots = document.getElementsByClassName('dot');
+
         for (let dot of dots) {
             dot.addEventListener("click", () => this.moveToSlide(dot));
         }
@@ -158,13 +170,9 @@ let slides;
        this.addListenersDrag();
     }
 
-    SliderPlugin.defaults = {
-            arrows: true,
-            dots: true,
-    };
-
     window.SliderPlugin = SliderPlugin;
-}())
+
+}());
 
 
 
